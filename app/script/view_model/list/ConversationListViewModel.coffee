@@ -142,11 +142,8 @@ class z.ViewModel.list.ConversationListViewModel
   # Call stuff
   ###############################################################################
 
-  on_accept_call: (conversation_et) ->
-    amplify.publish z.event.WebApp.CALL.STATE.JOIN, conversation_et.id, false
-
-  on_accept_video: (conversation_et) ->
-    amplify.publish z.event.WebApp.CALL.STATE.JOIN, conversation_et.id, true
+  on_accept_call: (conversation_et, video_send) =>
+    amplify.publish z.event.WebApp.CALL.STATE.JOIN, conversation_et.id, video_send
 
   on_leave_call: (conversation_et) =>
     termination_reason = z.calling.enum.TERMINATION_REASON.SELF_USER if @joined_call()?.state() isnt z.calling.enum.CallState.OUTGOING
